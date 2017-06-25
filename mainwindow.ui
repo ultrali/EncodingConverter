@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>570</width>
+    <height>353</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>461</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="puBtn_addFiles">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>0</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Files &lt;&lt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="puBtn_addDir">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>50</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add DIR &lt;&lt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="puBtn_remove">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>100</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&gt;&gt; Remove</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="puBtn_start">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>200</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start Convert</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>260</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&gt;&gt; Convert &gt;&gt;</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>260</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Source File backup format: *.bk&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>Backup?</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_srcEncode">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>260</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>GB18030</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Big5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-8</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-16</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-32</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dstEncode">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>260</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>GB18030</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Big5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-8</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-16</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-32</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="puBtn_Clean">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>150</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&gt;&gt; CleanAll</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_srcLinetype">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>118</x>
+      <y>260</y>
+      <width>81</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="currentText">
+     <string>CRLF (WIN)</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>CRLF (WIN)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LF (Linux)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CR (OS X)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>none</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>inconsistent !!</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_dstLinetype">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>260</y>
+      <width>81</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>CRLF (WIN)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LF (Linux)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CR (OS X)</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>570</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_App"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbout_App">
+   <property name="text">
+    <string>About App</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
