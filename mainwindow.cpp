@@ -59,8 +59,7 @@ void MainWindow::onActionAbout()
 {
 	QMessageBox msgBox(this);
 	msgBox.setWindowTitle(tr("About"));
-    QString aboutMsg = "<p>EncodingConverter"
-                      "Version 1.24 </p>"
+    QString aboutMsg = "<p>EncodingConverter Version 1.24 </p>"
                       "<p>This is an opensource application. Designed by <a href=\"https://github.com/ultrali\">@ultrali</a>."
                       "NOT GUARANTEE THE SAFETY OF THE PROGRAM, USE WITH CAUTION! \n</p>"
                       "<p>From: <a href=\"https://github.com/ultrali/EncodingConverter\">EncodingConverter</a></p>";
