@@ -23,6 +23,11 @@
       <height>251</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
     <property name="acceptDrops">
      <bool>false</bool>
     </property>
@@ -160,6 +165,11 @@
     <item>
      <property name="text">
       <string>Big5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>UTF-8 BOM</string>
      </property>
     </item>
     <item>

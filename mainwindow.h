@@ -1,7 +1,13 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include <QMainWindow>
 #include "dialog.h"
+
 namespace Ui {
 class MainWindow;
 }

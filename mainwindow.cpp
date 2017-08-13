@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QFileDialog>
@@ -13,8 +13,10 @@
 #include <QMimeData>
 #include <QShortcut>
 #include <QKeySequence>
+#include <QAbstractItemView>
 
-#include <uchardet/uchardet.h>
+//#include <uchardet/uchardet.h>
+#include <uchardet.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -57,9 +59,9 @@ void MainWindow::onActionAbout()
 {
 	QMessageBox msgBox(this);
 	msgBox.setWindowTitle(tr("About"));
-    QString aboutMsg = "<p>EncodingConverter "
-                      "Version 1.20 </p>"
-                      "<p>This is <a href=\"https://github.com/ultrali\">@ultrali</a> developed as  an open source application. "
+    QString aboutMsg = "<p>EncodingConverter"
+                      "Version 1.24 </p>"
+                      "<p>This is an opensource application. Designed by <a href=\"https://github.com/ultrali\">@ultrali</a>."
                       "NOT GUARANTEE THE SAFETY OF THE PROGRAM, USE WITH CAUTION! \n</p>"
                       "<p>From: <a href=\"https://github.com/ultrali/EncodingConverter\">EncodingConverter</a></p>";
     msgBox.setInformativeText(aboutMsg);
@@ -200,7 +202,14 @@ void MainWindow::onClickedStart()
             continue;
         }
 
-		QTextCodec* pDstCodec = QTextCodec::codecForName(ui->comboBox_dstEncode->currentText().toStdString().c_str());
+		QTextCodec* pDstCodec;
+		if (ui->comboBox_dstEncode->currentText() == "UTF-8 BOM") {
+			pDstCodec = QTextCodec::codecForName("UTF-8");
+			file.write(QByteArray::fromHex("EFBBBF"));
+		}
+		else {
+			pDstCodec = QTextCodec::codecForName(ui->comboBox_dstEncode->currentText().toStdString().c_str());
+		}
 		if (nullptr != pDstCodec) {
 			file.write(pDstCodec->fromUnicode(data));
 		}
@@ -323,7 +332,7 @@ void MainWindow::ucharDet()
 		ui->comboBox_dstLinetype->setCurrentIndex(0);//CRLF
 	}
 	else if (res == "GB18030") {
-		ui->comboBox_dstEncode->setCurrentIndex(2);//utf-8
+		ui->comboBox_dstEncode->setCurrentIndex(2);//utf-8 with bom
 		ui->comboBox_dstLinetype->setCurrentIndex(1);//LF
 	}
 	

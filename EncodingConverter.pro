@@ -50,6 +50,7 @@ RC_FILE = rc.rc
 #    DEFINES += WIN32
 #    INCLUDEPATH += D:/Developer/uchardet-master/src
 #    LIBS += -LD:/Developer/uchardet-master/Libs -luchardet
+#    #LIBS += D:/Framework/uchardet-master/Libs/libuchardet.a
 #}
 
 unix {

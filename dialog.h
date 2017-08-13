@@ -1,5 +1,10 @@
-#ifndef DIALOG_H
+﻿#ifndef DIALOG_H
 #define DIALOG_H
+
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include <QDialog>
 namespace Ui {
 class Dialog;
