@@ -1,8 +1,8 @@
 # EncodingConverter
 ## Version 1.24
-This is an opensource application based on Qt5. Designed by @ultrali(https://github.com/ultrali).
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-From: https://github.com/ultrali/EncodingConverter
+- This is an opensource application based on Qt5. Designed by [@ultrali](https://github.com/ultrali).
+- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+- From: [EncodingConverter](https://github.com/ultrali/EncodingConverter)
 
 ## OPENSOURCE LICENSES
 1. EncodingConverter:
