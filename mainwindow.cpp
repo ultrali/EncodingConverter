@@ -1,5 +1,4 @@
 ﻿#include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -15,8 +14,6 @@
 #include <QKeySequence>
 #include <QAbstractItemView>
 
-//#include <uchardet/uchardet.h>
-#include <uchardet.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,10 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_dialog = new Dialog(this);
     //GUI初始化
 	this->setAcceptDrops(true);
-
-
     this->setWindowTitle(tr("EncodingConverter"));
-    this->setWindowIcon(QIcon("icon.png"));
+    this->setWindowIcon(QIcon("./icon.ico"));
     this->setWindowFlags(Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint);//禁用最大化按钮
     this->setFixedSize(this->width(), this->height());//设置固定大小
     ui->listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);//QListWidget多选
@@ -37,17 +32,19 @@ MainWindow::MainWindow(QWidget *parent) :
     //信号与槽
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->actionAbout_App, &QAction::triggered, this, &MainWindow::onActionAbout);
-    connect(ui->puBtn_addDir, &QPushButton::clicked, this, &MainWindow::onClickedAddDir);
+    connect(ui->puBtn_addDir, &QPushButton::clicked, m_dialog, &QDialog::exec);
     connect(ui->puBtn_addFiles, &QPushButton::clicked, this, &MainWindow::onClickedAddFiles);
-    connect(ui->puBtn_remove, &QPushButton::clicked, this, &MainWindow::onClickedRemove);
+    connect(ui->puBtn_remove, &QPushButton::clicked, this, &MainWindow::onClickedRemoveListItem);
     ui->puBtn_remove->setShortcut(QKeySequence::Delete);
     connect(ui->puBtn_Clean, &QPushButton::clicked, this, &MainWindow::onClickedClean);
     connect(ui->puBtn_start, &QPushButton::clicked, this, &MainWindow::onClickedStart);
     connect(ui->listWidget, &QListWidget::itemSelectionChanged, this, &MainWindow::ucharDet);
     connect(m_dialog, SIGNAL(sigfilter(QString)), this, SLOT(onGetFilter(QString)));
+    //connect(m_dialog, &Dialog::sigfilter, this, &MainWindow::onGetFilter);
 
 	ui->statusBar->showMessage(tr("Ready!"), 3000);
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -59,12 +56,14 @@ void MainWindow::onActionAbout()
 {
 	QMessageBox msgBox(this);
 	msgBox.setWindowTitle(tr("About"));
-    QString aboutMsg = "<p>EncodingConverter Version 1.24 </p>"
-                      "<p>This is an opensource application. Designed by <a href=\"https://github.com/ultrali\">@ultrali</a>."
-                      "NOT GUARANTEE THE SAFETY OF THE PROGRAM, USE WITH CAUTION! \n</p>"
-                      "<p>From: <a href=\"https://github.com/ultrali/EncodingConverter\">EncodingConverter</a></p>";
+    QString aboutMsg = "<p>EncodingConverter Version 1.28 </p>"
+                       "<p>An opensource application. Designed by <a href=\"https://github.com/ultrali\">@ultrali</a>. "
+                       "This program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDE THE WARRANTY OF DESIGN, "
+                       "MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. \n</p>"
+                       "<p>From: <a href=\"https://github.com/ultrali/EncodingConverter\">EncodingConverter</a></p>";
     msgBox.setInformativeText(aboutMsg);
-    QPixmap pm(QLatin1String("icon.png"));
+    //引用 aboutapp.qrc
+    QPixmap pm(":/about/aboutapp.png");
     if (!pm.isNull()){
         msgBox.setIconPixmap(pm);
     }
@@ -92,39 +91,6 @@ void MainWindow::onClickedAddFiles()
                                tr(" new files imported. ") +QString::number(files.length()-count)+tr(" ignored.") , 3000);
 }
 
-void MainWindow::onClickedAddDir()
-{
-	//显示过滤器设置对话框
-	m_dialog->exec();
-
-    int count = 0;//新导入的
-    ui->statusBar->showMessage(tr("[Info] Import Dir"));
-    QString res = QFileDialog::getExistingDirectory(this,
-                                                    tr("Import Dir"),
-                                                    nullptr,
-                                                    QFileDialog::ShowDirsOnly|QFileDialog::DontResolveSymlinks);
-    if(!res.isEmpty()){
-        count = this->findFile(res);
-    }
-    ui->statusBar->showMessage(QString::number(count)+ tr(" new files imported."));
-}
-
-void MainWindow::onClickedRemove()
-{
-    int count = 0;
-    QList<QListWidgetItem*> items = ui->listWidget->selectedItems();
-    if(items.size() != 0){
-        QListWidgetItem* it;
-        foreach (it, items) {
-			int row = ui->listWidget->row(it); //获取item所在行号(从0开始)
-			ui->listWidget->takeItem(row); //拿下item，不在受qt管理
-			delete it; //永久删除item
-            count++;
-        }
-    }
-
-    ui->statusBar->showMessage(QString::number(count) + tr(" files removed."), 3000);
-}
 
 void MainWindow::onClickedClean()
 {
@@ -178,8 +144,6 @@ void MainWindow::onClickedStart()
 			contentBytes.replace("\n\n", "\n");
 			contentBytes.replace("\n", "\r\n");
 		}
-		
-
 
 		//编码转换
         //src_codec => Unicode QString
@@ -227,6 +191,32 @@ void MainWindow::onClickedStart()
 void MainWindow::onGetFilter(QString sFilter)
 {
 	m_fileFilter = sFilter;
+    int count = 0;  // import file count
+    ui->statusBar->showMessage(tr("[Info] Import Dir"));
+    QString res = QFileDialog::getExistingDirectory(this,
+                                                    tr("Import Dir"),
+                                                    nullptr,
+                                                    QFileDialog::ShowDirsOnly|QFileDialog::DontResolveSymlinks);
+    if(!res.isEmpty()){
+        count = this->findFile(res);
+    }
+    ui->statusBar->showMessage(QString::number(count)+ tr(" new files imported."));
+}
+
+void MainWindow::onClickedRemoveListItem()
+{
+	int count = 0;
+	QList<QListWidgetItem*> items = ui->listWidget->selectedItems();
+	if (items.size() != 0) {
+		QListWidgetItem* it;
+		foreach(it, items) {
+			int row = ui->listWidget->row(it); //获取item所在行号(从0开始)
+			ui->listWidget->takeItem(row); //拿下item，不在受qt管理
+			delete it; //永久删除item
+			count++;
+		}
+	}
+	ui->statusBar->showMessage(QString::number(count) + tr(" files removed."), 3000);
 }
 
 
@@ -367,8 +357,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 	}
 }
 
-
-void MainWindow::dropEvent(QDropEvent *event)
+void MainWindow::dropEvent(QDropEvent * event)
 {
 	QList<QUrl> urls = event->mimeData()->urls();
 	if (urls.isEmpty())
@@ -394,4 +383,3 @@ void MainWindow::dropEvent(QDropEvent *event)
 		ui->statusBar->showMessage(tr("[Info] Not support object(%1)!").arg(url.url()), 3000);
 	}
 }
-

@@ -1,5 +1,5 @@
 ﻿#include "dialog.h"
-#include "ui_dialog.h"
+
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -15,9 +15,9 @@ Dialog::~Dialog()
 }
 void Dialog::onClickedButtonOk()
 {
-    ui->lineEdit->text();
-	this->close();
-    emit sigfilter(ui->lineEdit->text());
+    QString filtertext = ui->lineEdit->text();
+    this->close();
+    emit sigfilter(filtertext);
 }
 void Dialog::onClickedButtonCancel()
 {

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/about">
+        <file>aboutapp.png</file>
+    </qresource>
+</RCC>

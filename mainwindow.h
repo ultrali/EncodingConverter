@@ -1,28 +1,27 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#if _MSC_VER >= 1600
-#pragma execution_character_set("utf-8")
-#endif
+//#if _MSC_VER >= 1600
+//#pragma execution_character_set("utf-8")
+//#endif
 
 #include <QMainWindow>
+#include <uchardet.h>
+#include "ui_mainwindow.h"
 #include "dialog.h"
 
-namespace Ui {
-class MainWindow;
-}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 protected slots:
     void onActionAbout();
     void onClickedAddFiles();
-    void onClickedAddDir();
 	void onGetFilter(QString sFilter);
-    void onClickedRemove();
+    void onClickedRemoveListItem();
     void onClickedClean();
     void onClickedStart();
     void ucharDet();//文件编码检测
